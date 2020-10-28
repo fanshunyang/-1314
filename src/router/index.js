@@ -7,17 +7,22 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/Contor'
         },
         {
             path: '/',
             component: () => import(/* webpackChunkName: "home" */ '../components/common/Home.vue'),
             meta: { title: '自述文件' },
             children: [
+                // {
+                //     path: '/dashboard',
+                //     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
+                //     meta: { title: '控制面板' }
+                // },
                 {
-                    path: '/dashboard',
-                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
-                    meta: { title: '系统首页' }
+                    path: '/contor',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Contor.vue'),
+                    meta: { title: '控制面板' }
                 },
                 {
                     path: '/icon',
@@ -46,10 +51,46 @@ export default new Router({
                     meta: { title: '富文本编辑器' }
                 },
                 {
+                    //管理员列表组件
+                    path: '/list',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/list.vue'),
+                    meta: { title: '管理员列表' }
+                },
+                {
+                    //管理员添加组件
+                    path: '/administrator',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Administrator.vue'),
+                    meta: { title: '管理员列表' }
+                },
+                {
+                    //角色列表组件
+                    path: '/role',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Role.vue'),
+                    meta: { title: '角色列表' }
+                },
+                {
+                    //角色添加组件
+                    path: '/terms',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Terms.vue'),
+                    meta: { title: '角色添加' }
+                },
+                {
+                    //权限列表组件
+                    path: '/permisson',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Permisson.vue'),
+                    meta: { title: '权限列表' }
+                },
+                {
+                    //权限添加组件
+                    path: '/authority',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Athority.vue'),
+                    meta: { title: '权限添加' }
+                },
+                {
                     // markdown组件
                     path: '/markdown',
                     component: () => import(/* webpackChunkName: "markdown" */ '../components/page/Markdown.vue'),
-                    meta: { title: 'markdown编辑器' }
+                    meta: { title: '管理员添加' }
                 },
                 {
                     // 图片上传组件

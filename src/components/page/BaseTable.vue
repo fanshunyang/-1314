@@ -34,7 +34,7 @@
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="name" label="用户名"></el-table-column>
                 <el-table-column label="账户余额">
-                    <template slot-scope="scope">￥{{scope.row.money}}</template>
+                    <template v-slot="scope">￥{{scope.row['money']}}</template>
                 </el-table-column>
                 <el-table-column label="头像(查看大图)" align="center">
                     <template slot-scope="scope">
@@ -53,6 +53,7 @@
                         >{{scope.row.state}}</el-tag>
                     </template>
                 </el-table-column>
+                
 
                 <el-table-column prop="date" label="注册时间"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
@@ -62,6 +63,7 @@
                             icon="el-icon-edit"
                             @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
+                        
                         <el-button
                             type="text"
                             icon="el-icon-delete"
@@ -125,32 +127,44 @@ export default {
     },
     created() {
         this.getData();
+       
     },
     methods: {
         // 获取 easy-mock 的模拟数据
-        getData() {
-            fetchData(this.query).then(res => {
-                console.log(res);
-                this.tableData = res.list;
-                this.pageTotal = res.pageTotal || 50;
-            });
+       async getData() {
+           const res = await fetchData(this.query)
+            const {list,pageTotal} = res
+            this.tableData = list
+            this.pageTotal = pageTotal || 40
+
+            // fetchData(this.query).then(res => {
+            //     console.log(res);
+
+            //     this.tableData = res.list;
+            //     this.pageTotal = res.pageTotal || 30
+            //     console.log( this.pageTotal);
+            // });
+            
         },
         // 触发搜索按钮
         handleSearch() {
-            this.$set(this.query, 'pageIndex', 1);
+            this.$set(this.query, 'pageIndex', 1); 
             this.getData();
+         
         },
         // 删除操作
-        handleDelete(index, row) {
+         handleDelete(index, row) {
+          console.log(row,index);
             // 二次确认删除
             this.$confirm('确定要删除吗？', '提示', {
                 type: 'warning'
             })
                 .then(() => {
                     this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                    this.tableData.splice(index,1)                                 
                 })
                 .catch(() => {});
+            
         },
         // 多选操作
         handleSelectionChange(val) {

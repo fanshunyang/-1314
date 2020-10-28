@@ -30,6 +30,9 @@
                 tagsList: []
             }
         },
+        mounted () {
+            console.log(this.tagsList);
+        },
         methods: {
             isActive(path) {
                 return path === this.$route.fullPath;
