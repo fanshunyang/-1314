@@ -3,14 +3,14 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-export default new Router({
+ const router =  new Router({
     routes: [
         {
             path: '/',
-            redirect: '/Contor'
+            redirect: '/login'
         },
         {
-            path: '/',
+            path: '/home',
             component: () => import(/* webpackChunkName: "home" */ '../components/common/Home.vue'),
             meta: { title: '自述文件' },
             children: [
@@ -53,14 +53,14 @@ export default new Router({
                 {
                     //管理员列表组件
                     path: '/list',
-                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/list.vue'),
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/List.vue'),
                     meta: { title: '管理员列表' }
                 },
                 {
                     //管理员添加组件
                     path: '/administrator',
                     component: () => import(/* webpackChunkName: "editor" */ '../components/page/Administrator.vue'),
-                    meta: { title: '管理员列表' }
+                    meta: { title: '管理员添加' }
                 },
                 {
                     //角色列表组件
@@ -85,6 +85,18 @@ export default new Router({
                     path: '/authority',
                     component: () => import(/* webpackChunkName: "editor" */ '../components/page/Athority.vue'),
                     meta: { title: '权限添加' }
+                },
+                {
+                    //活动列表组件
+                    path: '/activitylist',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Activitylist.vue'),
+                    meta: { title: '活动列表' }
+                },
+                {
+                    //创建活动组件
+                    path: '/activities',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/Activities.vue'),
+                    meta: { title: '创建活动' }
                 },
                 {
                     // markdown组件
@@ -156,3 +168,8 @@ export default new Router({
         }
     ]
 });
+//路由前置导航守卫
+// router.beforeEach(()=>{
+    
+// })
+export default router

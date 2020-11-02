@@ -103,9 +103,26 @@ export default {
                                     title: '权限添加'
                                 }
                             ]
-                        },       
+                        },    
+                        
+                         {
+                            index: '3-5',
+                            title: '活动管理',
+                            subs: [
+                                {
+                                    index: 'activitylist',
+                                    title: '活动列表'
+                                },
+                                {
+                                    index: 'activities',
+                                    title: '创建活动'
+                                }
+                            ]
+                        },    
                     ]
                 },
+
+                
 
               
                 // {

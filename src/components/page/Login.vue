@@ -1,10 +1,10 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
-            <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+            <div class="ms-title">致远传媒后台管理系统</div>
+            <el-form :model="param"  ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.a_name" placeholder="username">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
@@ -12,7 +12,7 @@
                     <el-input
                         type="password"
                         placeholder="password"
-                        v-model="param.password"
+                        v-model="param.a_pwd"
                         @keyup.enter.native="submitForm()"
                     >
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
@@ -21,39 +21,63 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
+
+import {fetchData} from '../../api/index'
 export default {
-    data: function() {
+    data () {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+             a_name:'',
+             a_pwd:''
             },
-            rules: {
-                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-            },
+            
+            
+            // rules: {
+            //     username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+            //     password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+            // },
         };
     },
+    mounted () {
+    
+    },
     methods: {
-        submitForm() {
-            this.$refs.login.validate(valid => {
-                if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
-                } else {
-                    this.$message.error('请输入账号和密码');
-                    console.log('error submit!!');
-                    return false;
-                }
-            });
+        async submitForm() {
+          const res = await fetchData({
+              a_name:this.param.a_name,
+              a_pwd:this.param.a_pwd
+          })
+          const {code,msg} = res
+           if (code==='200') {
+           const {token} = res.data
+            localStorage.setItem('token',token)
+            this.$message.success(msg);
+            this.$router.push('/contor');
+           } else {
+              this.$message.error(msg);
+           }
+
+
+       
+            // this.$refs.login.validate(valid => {
+            //     if (valid) {
+            //         this.$message.success('登录成功');
+            //         localStorage.setItem('ms_username', this.param.username);
+            //         this.$router.push('/contor');
+            //     } else {
+            //         this.$message.error('请输入账号和密码');
+            //         console.log('error submit!!');
+            //         return false;
+            //     }
+            // });
+          
         },
     },
 };
@@ -64,7 +88,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
+    background-image: url(../../assets/img/bg.png);
     background-size: 100%;
 }
 .ms-title {

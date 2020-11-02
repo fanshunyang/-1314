@@ -28,7 +28,7 @@ a {
     top: 70px;
     bottom: 0;
     padding-bottom: 30px;
-    -webkit-transition: left .3s ease-in-out;
+    -webkit-transition: left .3s ease-in-out ;
     transition: left .3s ease-in-out;
     background: #f0f0f0;
 }
@@ -123,7 +123,7 @@ a {
 }
 
 .g-core-image-corp-container .info-aside {
-    height: 45px;
+    height: 45px ;
 }
 
 .el-upload--text {

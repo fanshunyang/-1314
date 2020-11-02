@@ -31,7 +31,7 @@
             }
         },
         mounted () {
-            console.log(this.tagsList);
+            // console.log(this.tagsList);
         },
         methods: {
             isActive(path) {

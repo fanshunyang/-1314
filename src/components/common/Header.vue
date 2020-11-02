@@ -38,10 +38,10 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
+                        <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                             <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
-                        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                        </a> -->
+                        <el-dropdown-item divided command="loginout" >退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -50,13 +50,15 @@
 </template>
 <script>
 import bus from '../common/bus';
+import {quit} from '../../api/index'
 export default {
     data() {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
-            message: 2
+            name: 'root',
+            message: 2,
+            adm_id:1
         };
     },
     computed: {
@@ -67,11 +69,23 @@ export default {
     },
     methods: {
         // 用户名下拉菜单选择事件
-        handleCommand(command) {
-            if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
+       async handleCommand(command) {
+          const token = localStorage.getItem('token')
+          this.axios.defaults.headers.common['token'] = token
+           const res = await quit({
+               token:token
+           },
+           {
+               token:token,
+               adm_id:this.adm_id
+           })
+           console.log(res);
+           const {code,msg} = res
+          if (code==='200' && command === 'loginout') {
+               localStorage.removeItem('token');
                 this.$router.push('/login');
-            }
+                this.$message.success(msg);
+          }
         },
         // 侧边栏折叠
         collapseChage() {
@@ -80,6 +94,7 @@ export default {
         },
         // 全屏事件
         handleFullScreen() {
+          
             let element = document.documentElement;
             if (this.fullscreen) {
                 if (document.exitFullscreen) {
