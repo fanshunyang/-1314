@@ -32,13 +32,13 @@ class HttpRequset {
     instance.interceptors.response.use((response) => {
       // 处理响应拦截器的内容
     
-     console.log(response);
+    //  console.log(response);
       const res = response.data
       const path = location.history
     
      if (res.code==='NOTOKEN03') {
       localStorage.removeItem('token')
-      this.$message.error(msg)
+      this.$message.error(msg);
     }
       if (res.code === '200') {
         return res

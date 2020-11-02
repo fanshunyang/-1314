@@ -18,6 +18,25 @@
        <p class="laber">基本信息</p>
         <!-- 表单 -->
 
+ <div class="cent">
+   <el-form ref="form" :model="form12" label-width="80px">
+  <el-form-item label="客户ID">
+    <el-input v-model="form12.name" class="inputs"></el-input>
+  </el-form-item>
+</el-form>
+  </div>
+
+
+ <div class="cent">
+   <el-form ref="form" :model="form13" label-width="80px">
+  <el-form-item label="监测链接">
+    <el-input v-model="form13.name" class="inputs" ></el-input>
+  </el-form-item>
+</el-form>
+  </div>
+
+
+
     <div class="cent">
    <el-form ref="form" :model="form" label-width="80px">
   <el-form-item label="活动名称">
@@ -75,6 +94,24 @@
 
    <p class="laber">基本信息</p>
         <!-- 表单 -->
+
+ <div class="cent">
+   <el-form ref="form" :model="form14" label-width="80px">
+  <el-form-item label="客户ID">
+    <el-input v-model="form14.name" class="inputs"></el-input>
+  </el-form-item>
+</el-form>
+  </div>
+
+
+ <div class="cent">
+   <el-form ref="form" :model="form15" label-width="80px">
+  <el-form-item label="监测链接">
+    <el-input v-model="form15.name" class="inputs" ></el-input>
+  </el-form-item>
+</el-form>
+  </div>
+
 
     <div class="cent">
    <el-form ref="form" :model="form2" label-width="80px">
@@ -244,7 +281,7 @@
      <el-radio v-model="radio9" label="1">cpm</el-radio>
     <el-radio v-model="radio9" label="2">cpc</el-radio>
     <el-radio v-model="radio9" label="3">cpuv</el-radio>
-    <el-radio v-model="radio9" label="4">固定出价</el-radio>
+  
 
 
    </div>
@@ -254,8 +291,9 @@
  <div class="dxquerds">
    
    <div class="fdsfleft">
-     <el-radio v-model="radio10" label="1">按点击率浮动出价</el-radio>
-    <el-radio v-model="radio10" label="2">按到达率浮动出价</el-radio>
+       <el-radio v-model="radio10" label="1" ref="gdcj" @change="fixed">固定出价</el-radio>
+     <el-radio v-model="radio10" label="2"  @change="fixed">按点击率浮动出价</el-radio>
+    <el-radio v-model="radio10" label="3"  @change="fixed">按到达率浮动出价</el-radio>
    </div>
  </div>
 
@@ -298,8 +336,8 @@
 <!-- 计数器 -->
 
 <div class="fdsll">
-  <span class="querrts">固定cpm</span>
-<el-input-number v-model="numfive" label="描述文字" class="el-input-number"></el-input-number>
+  <span class="querrts">固定出价</span>
+<el-input-number v-model="numfive" :disabled="bole" label="描述文字" class="el-input-number"></el-input-number>
 </div>
 
 <!-- 单选框 -->
@@ -551,7 +589,7 @@
 
 <div class="fdsfsdpty">
   <li :class="{'btnt':item.id===crrid} " ref="ondes" v-for="(item,index) in lits" :key="index" @click="switchover(item.id)">{{item.name}}</li>
-  
+  <button class="submit" ref="submits">完成</button>
 </div>
 
   
@@ -565,7 +603,7 @@
 export default {
     data () {
         return {
-          crrid:1,
+         
           lit:[{
             id:1,
             name:'1. 新增活动'
@@ -635,6 +673,22 @@ export default {
             form11 : {
                 
             },
+            //表单13
+            form12 : {
+                
+            },
+            //表单14
+            form13 : {
+                
+            },
+            //表单15
+            form14 : {
+                
+            },
+            //表单16
+            form15 : {
+                
+            },
             //计数器1
             num:1,
 
@@ -677,11 +731,6 @@ export default {
             radio26: '',
             radio27: '',
 
-        
-
-
-           
-
            
             //多选框
             checked:false,
@@ -722,10 +771,19 @@ export default {
           fdsi:true,
           fdsit:false,
           fdsitys:false,
-           
+          bole:false,
+          crrid:1,
         }
     },
     methods : {
+      // 固定出价
+    fixed (vale) {
+      if (vale!=='1') {
+        this.bole = true
+      } else {
+        this.bole = false
+      }
+    },
      switchover (id) {
       this.crrid = id
       // this.fdsit = false 
@@ -741,18 +799,19 @@ export default {
         this.fdsit = true
         this.fdsi = false
         this.fdsitys = false
+        this.$refs.submits.style.backgroundColor = ''
       } else if(id===3) {
        this.fdsitys = true
        this.fdsit = false
        this.fdsi = false
+       this.$refs.submits.style.backgroundColor = 'green'
       }else {
        this.fdsitys = false
        this.fdsi = true
        this.fdsit = false
+       this.$refs.submits.style.backgroundColor = ''
       }
-      
       // this.fdsi = true
-
      },
    }
 }
@@ -774,12 +833,12 @@ export default {
         color: #fff;
     }
     .festy {
-      color: #666;
-      background-color: blue;
+      color: #ffffff;
+      background-color: #409EFF;
     }
     .p1 {
       color: #666;
-      background-color:blue;
+      background-color:#409EFF;
     }
     .laber {
         margin-top: 50px;
@@ -841,6 +900,7 @@ export default {
     .inputs {
         width: 55%;
     }
+    
     /* .hegns {
         border-bottom: 1px solid #cccccc;
     } */
@@ -918,6 +978,24 @@ export default {
       text-align: center;
       color: #fff;
       line-height: 30px;
+    }
+    li:hover {
+      cursor:pointer;
+    }
+      .submit {
+      width: 60px;
+      height: 30px;
+      background: rgb(238, 238, 238);
+      margin-top: 15px;
+      margin-right: 10px;
+      border: none;
+      outline:0;
+      text-align: center;
+      color: #fff;
+      line-height: 30px;
+    }
+    .submit:hover {
+      cursor: pointer;
     }
     .tred {
       margin: 25px 130px;

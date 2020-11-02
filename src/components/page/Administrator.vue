@@ -58,39 +58,7 @@
 </el-form>
 
 
-   <div class="fgaiefts">
-      <div class="sici">是否显示</div>
-     </div>
-   <el-form ref="form" :model="formf" class="cdrr" >
-  <el-form-item :label-width="formLabelWidth" >
-    <div class="fsdgsdge">
-     <template>
-     <el-switch class="dsfsdf"
-  v-model="formy.a_status"
-  active-color="#13ce66"
-  inactive-color="#ff4949">
-</el-switch>
-   </template>
-  </div>
-  </el-form-item>
-   </el-form>
 
-      <div class="fgaiefts">
-      <div class="sici">超级管理</div>
-     </div>
-   <el-form ref="form" :model="formt" class="cdrr" >
-  <el-form-item :label-width="formLabelWidth" >
-    <div class="fsdgsdge">
-     <template>
-     <el-switch class="dsfsdf"
-  v-model="formy.a_status"
-  active-color="#13ce66"
-  inactive-color="#ff4949">
-</el-switch>
-   </template>
-  </div>
-  </el-form-item>
-   </el-form>
 
       <div class="fgaiefts">
       <div class="sici">状态</div>
@@ -131,25 +99,41 @@ export default {
      formf:{},
      formt:{},
      form : {
-     a_account:'admin'
+     a_account:'admi13233211'
      },
       form1 : {
-      a_name:'zhuwenbo01'
+      a_name:'zhuwen1b44o0133'
      },
       form2 : {
-      a_password:'qwer1234'
+      a_password:'qwe1r1223334'
      },
       form3 : {
-        a_nick:'14454567895@163.com'
+        a_nick:'1333@163.com'
      },
      form4:{},
    
      formLabelWidth:'130px',
-     sletevalues :0,
-       options: [],
+     sletevalues :'超级管理',
+
+       options: [{
+          value: '选项1',
+          label: '超级管理'
+        }, {
+          value: '选项2',
+          label: '优化'
+        }, {
+          value: '选项3',
+          label: '客户'
+        }, {
+          value: '选项4',
+          label: '销售'
+        }, {
+          value: '选项5',
+          label: '渠道'
+        }],
       
         adm_id:1,
-        a_role:'1'
+        a_role:3333444444
         
    }
  },
@@ -171,13 +155,13 @@ export default {
       token:token,
     },{
        token:token,
-      a_status:this.a_status,
+      a_status:this.formy.a_status,
       adm_id:this.adm_id,
        a_name:this.form1.a_name,
        a_nick:this.form3.a_nick,
        a_password:this.form2.a_password,
        a_account:this.form.a_account,
-      //  a_role:1
+       a_role:this.a_role
     })
     console.log(res);
   }

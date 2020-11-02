@@ -76,7 +76,7 @@
         width="65">
       </el-table-column>
       <el-table-column
-        prop="date"
+        prop="a_name"
         label="姓名"
         width="180">
       </el-table-column>
@@ -94,41 +94,23 @@
         label="角色">
       </el-table-column>
       <el-table-column
-        prop="address"
+    
         label="创建时间">
+        <template slot-scope="slot">
+            {{slot.row.a_add_time |addtime}}
+        </template>
       </el-table-column>
       <el-table-column
         prop="address"
         label="更新时间">
       </el-table-column>
-      <el-table-column
-        prop="address"
-        label="显示">
-        <template >
-        <el-switch
-        v-model="value"
-        active-color="#13ce66"
-        inactive-color="#ff4949">
-      </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="Super">
-         <template >
-        <el-switch
-        v-model="value1"
-        active-color="#13ce66"
-        inactive-color="#ff4949">
-      </el-switch>
-        </template>
-      </el-table-column>
+      
       <el-table-column
         prop="address"
         label="状态">
-         <template >
+         <template slot-scope="slot" >
         <el-switch
-        v-model="value2"
+        v-model="slot.row.a_status"
         active-color="#13ce66"
         inactive-color="#ff4949">
       </el-switch>
@@ -156,10 +138,11 @@
         </div>  
       </el-table-column>
     </el-table>
+    <!-- 查看 -->
        <el-dialog title="查看" :visible.sync="dialogTableVisibleLook">
          <el-table :data="gridData" border :show-header="false" class="dsfsd" >
-         <el-table-column property="dates"  width="120"></el-table-column>
-         <el-table-column property="names"  width="607.5"></el-table-column>
+         <el-table-column  prop="name"   width="120"></el-table-column>
+         <el-table-column  prop="name"   width="607.5"></el-table-column>
          </el-table>
          </el-dialog>
 
@@ -314,26 +297,7 @@ export default {
           label: '北京烤鸭'
         }],
         valueitem:"",
-        gridData : [ {
-            dates: '姓名',
-            names: '111',
-         
-          }, {
-            dates: '昵称',
-            names: '22',
-          }, 
-          {
-            dates: '昵称',
-            names: '22',
-          },
-          {
-            dates: '昵称',
-            names: '22',
-          },
-          {
-            dates: '昵称',
-            names: '22',
-          },
+        gridData : [ 
           
           ],
           dialogTableVisibleLook:false,
@@ -394,8 +358,24 @@ export default {
     add () {
       this.dialogFormVisibleAble = true
     },
-   look () {
+    //查看
+  async look () {
+     
      this.dialogTableVisibleLook = true
+
+        const token = localStorage.getItem('token')
+          this.axios.defaults.headers.common['token'] = token
+           const res = await getlist({
+             token:token
+           },
+           {
+             token:token,
+             adm_id:1
+           })
+           if (res.code==='200') {
+             this.gridData = res.msg
+           }
+           console.log( this.gridData);
    },
    datestorng () {
          this.$confirm('确认要重置密码吗？', '信息', {
@@ -414,8 +394,11 @@ export default {
           });          
         });      
      },
+     //编辑
      compile () {
        this.dialogTableVisibleLookscop = true
+
+       
      },
      deletse () {
          this.$confirm('确认要删除吗', '信息', {

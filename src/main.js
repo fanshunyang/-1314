@@ -11,6 +11,7 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
 import 'sass-loader'
+import moment from 'moment'
 // import '@/styles/index.scss'
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios
@@ -26,7 +27,9 @@ const i18n = new VueI18n({
 
 
 
-
+Vue.filter('addtime',(v)=>{
+    return moment(v).format('YYYY-MM-DD');
+})
   
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
